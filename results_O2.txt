@@ -1,0 +1,47 @@
+
+=== Correctness check (N = 100000) ===
+inner_product                   25039.561912
+transform_reduce (seq)          25039.561912
+transform_reduce (par)          25039.561912
+transform_reduce (par_unseq)    25039.561912
+parallel_dot_product K=4        25039.561912
+parallel_dot_product K=9        25039.561912
+Max relative difference: 1.00e-14  -> OK
+
+=== Experiments 1-2: library algorithms, time in ms (median of 7 runs) ===
+            inner_product   transform_reduce with policy:
+N           (no policy)     seq           par           par_unseq
+------------------------------------------------------------------
+100000      0.1043          0.0302        0.0382        0.0301
+1000000     1.1507          0.5394        0.3377        0.3506
+5000000     5.8586          3.2543        2.2606        2.2133
+10000000    11.5764         6.4846        4.4610        4.4643
+20000000    23.4130         13.6739       9.4189        9.3726
+
+=== Experiment 3: custom parallel dot product, N = 20000000 (median of 15 runs) ===
+K       Time (ms)     Relative to best
+------------------------------------
+1       23.4304       2.4921
+2       12.3676       1.3155
+3       10.5953       1.1269
+4       10.1338       1.0779
+5       9.6791        1.0295
+6       9.4018        1.0000
+7       11.3255       1.2046
+8       10.3860       1.1047
+9       9.8658        1.0494
+10      9.6961        1.0313
+12      9.4701        1.0073
+16      9.6751        1.0291
+24      9.7646        1.0386
+32      9.8597        1.0487
+64      10.2136       1.0863
+128     11.0176       1.1719
+256     12.0771       1.2846
+512     18.0537       1.9202
+1024    35.4557       3.7712
+
+Best K = 6 (time = 9.4018 ms)
+Hardware concurrency (CPU threads) = 6
+Ratio best_K / hardware_concurrency = 1.0000
+K with time within 5% of the best: 5 6 9 10 12 16 24 32
